@@ -5,7 +5,9 @@ Simple web platform for a library
 
 Requirements:
 - Node.js/npm
-
+- Python
+    - Django
+    - Django Rest Framework
 
 ### Frontend
 1. In the frontend folder, install dependencies:
