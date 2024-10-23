@@ -4,7 +4,7 @@ Simple web platform for a library
 ## Run the project locally
 
 Requirements:
-- Node.js/npm
+- Node.js
 - Python
     - Django
     - Django Rest Framework
