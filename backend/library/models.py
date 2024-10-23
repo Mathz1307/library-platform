@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 # Book model
 class Book(models.Model):
-    name = models.CharField(max_length=512, primary_key=True)
+    name = models.CharField(max_length=512)
     release_date = models.DateField()
     pages = models.BigIntegerField()
-    cover = models.ImageField(upload_to='book_covers/') 
+    cover = models.ImageField(upload_to='assets/') 
     authors = models.ManyToManyField('Author')
     genres = models.ManyToManyField('Genre')
 
