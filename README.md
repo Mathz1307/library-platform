@@ -13,9 +13,10 @@ Requirements:
 ### Frontend
 1. In the frontend folder, install dependencies:
 ```npm install```
-2. Run the project:
+2. Create a .env file with the required variables (see .env.example)
+3. Run the project:
 ```npm run dev```
-3. In a browser, open the URL that is showing on the terminal.
+4. In a browser, open the URL that is showing on the terminal.
 
 ### Backend
 1. In the backend folder, run the api:
