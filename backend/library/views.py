@@ -11,8 +11,8 @@ def get_books(request):
     books = Book.objects.all()
     books_data = BookSerializer(books, many=True).data
 
-    authors_id = [tuple(books_data[i]["authors"]) for i in range(len(books_data))]
-    genres_id = [tuple(books_data[i]["authors"]) for i in range(len(books_data))]
+    authors_id = [book["authors"] for book in books_data]
+    genres_id = [book["genres"] for book in books_data]
 
     for i in range(len(authors_id)):
         authors = Author.objects.filter(id__in=authors_id[i])

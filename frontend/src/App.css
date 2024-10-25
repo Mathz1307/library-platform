@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.books {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
