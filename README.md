@@ -8,6 +8,7 @@ Requirements:
 - Python
     - Django
     - Django Rest Framework
+    - Django CORS headers
 
 ### Frontend
 1. In the frontend folder, install dependencies:
