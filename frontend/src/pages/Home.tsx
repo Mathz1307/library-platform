@@ -27,6 +27,7 @@ function Home() {
 
   return (
     <div className="App">
+      <h1>Books</h1>
       <div className="buttons">
         <Button text="Delete Books" onClickFunction={() => console.log("delete")} />
       </div>
