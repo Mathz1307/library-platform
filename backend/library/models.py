@@ -6,7 +6,8 @@ class Book(models.Model):
     name = models.CharField(max_length=512)
     release_date = models.DateField()
     pages = models.BigIntegerField()
-    cover = models.ImageField(upload_to='assets/') 
+    #cover = models.ImageField(upload_to='assets/') 
+    cover = models.CharField(max_length=512)
     authors = models.ManyToManyField('Author')
     genres = models.ManyToManyField('Genre')
 

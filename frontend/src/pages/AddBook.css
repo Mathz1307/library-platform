@@ -1,0 +1,10 @@
+.book_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    max-width: 30rem;
+}

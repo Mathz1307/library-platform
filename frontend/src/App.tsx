@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import Book from './components/Book/Book'
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';  // Assuming you have a Home component
+import AddBook from './pages/AddBook'; // The new About page component
+import Navbar from './components/Navbar/Navbar';
+import './App.css';
 
 type author = {
   id: number;
@@ -14,7 +14,7 @@ type genre = {
   name: string;
 }
 
-type book = {
+export type book = {
   id: number;
   name: string;
   release_date: string;
@@ -24,34 +24,29 @@ type book = {
   genres: genre[];
 }
 
+export type bookData = {
+  name: string;
+  release_date: string;
+  pages: number;
+  cover: string;
+  authors: object[];
+  genres: object[];
+}
+
 function App() {
-  const [books, setBooks] = useState<book[]>([]);
-
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const fetchBooks = async () => {
-    try { 
-      const response = await fetch(`${API_URL}/library/api/books`);
-      const data: book[] = await response.json();
-      console.log(data); 
-      setBooks(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   return (
-    <div className="App">
-      <h1>Books</h1>
-      <div className="books">
-        {books.map(book => (
-          <Book key={book.id} {...book} />
-        ))}
-      </div>
+    <>
+    <div className="navbar">
+      <Navbar/>
     </div>
+    <div className="page">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add-book" element={<AddBook />} />
+      </Routes>
+    </div>
+    </>
   );
 }
 
-export default App
+export default App;

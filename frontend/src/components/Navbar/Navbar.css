@@ -1,0 +1,31 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #71a9d6;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+
+.active {
+    background-color: #3f8fbc;
+}
+
+nav h1 {
+    color: white;
+    font-size: 2rem;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.3rem;
+}

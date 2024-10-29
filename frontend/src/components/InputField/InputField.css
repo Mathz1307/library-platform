@@ -1,0 +1,27 @@
+.input_field {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 30rem;
+    height: 2rem;
+    padding: 0.5rem;
+}
+
+.input_box {
+    margin-left: 0.5rem;
+    width: 30rem;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+.input_text {
+    margin-right: 0.5rem;
+    width: 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
