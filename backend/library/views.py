@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Book, Author, Genre
 from .serializers import BookSerializer, AuthorSerializer, GenreSerializer
-import os
 
 @api_view(['GET'])
 def get_books(request):
