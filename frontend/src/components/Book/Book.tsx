@@ -2,12 +2,41 @@ import './Book.css';
 import reactLogo from '../../assets/react.svg';
 import { book } from '../../App'; 
 import { useState } from 'react';
+import Button from '../Button/Button';
 
-function Book(book_info: book) {
+type BookProps = {
+    book_info: book;
+    manageMode: boolean;
+}
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+function Book({ book_info, manageMode }: BookProps) {
     const [imgPath, setImgPath] = useState(book_info.cover);
+    const [notDeleted, setNotDeleted] = useState(true);
 
-    return (
+    const deleteBook = async (book_id: number) => {
+        try {
+            const response = await fetch(`${API_URL}/library/api/books/delete/${book_id}`, {
+                method: 'DELETE'
+            });
+            const data = await response.json();
+            console.log(data);
+    
+            if (response.ok) {
+                setNotDeleted(false);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    return notDeleted && (
         <div className="book">
+            <div className="buttons">
+                {manageMode && <Button text="Delete" onClickFunction={() => deleteBook(book_info.id)} />}
+            </div>
             <img className="cover" src={imgPath} onError={() => setImgPath(reactLogo)}/>
             <h2 className="title">{book_info.name}</h2>
             <div className="info">
@@ -22,6 +51,7 @@ function Book(book_info: book) {
                     <p key={genre.id}>{genre.name}</p>
                 ))}
             </div>
+
         </div>
     );
 }

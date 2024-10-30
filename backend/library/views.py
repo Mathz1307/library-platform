@@ -67,26 +67,16 @@ def add_book(request):
     except Exception as e:
         return Response({"exception": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(['POST'])
-def delete_book(request):
+@api_view(['DELETE'])
+def delete_book(request, book_id):
     """Removes book from the database"""
-    data = request.data
-    print(data)
     try:
-        title = data["name"]
-        authors = data["authors"]
-
-        # Only need id of one of the authors (apparently)
-        author = authors[0]
-        author_object = Author.objects.get(name=author["name"])
-        author_id = AuthorSerializer(author_object, many=False).data["id"]
-
         # Find book in db
-        book = Book.objects.get(name=title, authors=author_id)
-        #cover_path = book.data["cover"]
+        book = Book.objects.get(id=book_id)
+        title = book.name
+
+        # Delete book from db
         book.delete()
-        
-        #os.remove(cover_path)
     
         return Response({"message": f"Book {title} was deleted successfully"}, status=status.HTTP_200_OK)
     

@@ -8,6 +8,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function Home() {
   const [books, setBooks] = useState<book[]>([]);
+  const [manageMode, setManageMode] = useState(false);
 
   useEffect(() => {
     fetchBooks();
@@ -29,11 +30,15 @@ function Home() {
     <div className="App">
       <h1>Books</h1>
       <div className="buttons">
-        <Button text="Delete Books" onClickFunction={() => console.log("delete")} />
+        {manageMode ?
+        <Button text="Done" onClickFunction={() => setManageMode(!manageMode)} />
+        :
+        <Button text="Manage books" onClickFunction={() => setManageMode(!manageMode)} />
+        }
       </div>
       <div className="books">
         {books.map(book => (
-          <Book key={book.id} {...book} />
+          <Book key={book.id} book_info={book} manageMode={manageMode} />
         ))}
       </div>
     </div>
