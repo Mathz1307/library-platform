@@ -8,11 +8,37 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function Home() {
   const [books, setBooks] = useState<book[]>([]);
+  const [filteredBooks, setFilteredBooks] = useState<book[]>([]);
   const [manageMode, setManageMode] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState(0);
 
   useEffect(() => {
     fetchBooks();
   }, []);
+
+  useEffect(() => {
+    if (search === "") {
+      setFilteredBooks(books);
+      return;
+    }
+
+    switch (filter) {
+      case 0:
+        setFilteredBooks(books.filter(book => book.name.toLowerCase().includes(search.toLowerCase())));
+        break;
+      case 1:
+        setFilteredBooks(books.filter(book => book.authors.map(author => author.name.toLowerCase()).join().includes(search.toLowerCase())));
+        break;
+      case 2:
+        setFilteredBooks(books.filter(book => book.genres.map(genre => genre.name.toLowerCase()).join().includes(search.toLowerCase())));
+        break;
+      default:
+        setFilteredBooks(books);
+        break;
+    }
+    
+  }, [search, books]);
 
   const fetchBooks = async () => {
     try { 
@@ -36,8 +62,16 @@ function Home() {
         <Button text="Manage books" onClickFunction={() => setManageMode(!manageMode)} />
         }
       </div>
+      <div className="search">
+        <input type="text" placeholder="Search books" onChange={(e) => setSearch(e.target.value)}/>
+        <select onChange={(e) => setFilter(parseInt(e.target.value))}>
+          <option value="0">Title</option>
+          <option value="1">Author</option>
+          <option value="2">Genre</option>
+        </select>
+      </div>
       <div className="books">
-        {books.map(book => (
+        {filteredBooks.map(book => (
           <Book key={book.id} book_info={book} manageMode={manageMode} />
         ))}
       </div>

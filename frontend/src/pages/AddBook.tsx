@@ -6,29 +6,7 @@ import './AddBook.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const addBook = async (bookData: bookData) => {
-  console.log(bookData);
-  try {
-    const response = await fetch(`${API_URL}/library/api/books/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookData),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to add book: ' + response.statusText);
-    }
-
-    const data: book = await response.json();
-    return data;
-  }
-  catch (error) {
-    console.error(error);
-  }
-}
-
-const AddBook = () => {
+function AddBook() {
   const [name, setName] = useState("");
   const [releaseDate, setReleaseDate] = useState("");
   const [pages, setPages] = useState("");
@@ -36,6 +14,35 @@ const AddBook = () => {
   const [authors, setAuthors] = useState("");
   const [genres, setGenres] = useState("");
   const [error, setError] = useState("");
+  const [added, setAdded] = useState(false);
+  
+  const addBook = async (bookData: bookData) => {
+    console.log(bookData);
+    try {
+      const response = await fetch(`${API_URL}/library/api/books/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add book: ' + response.statusText);
+      }
+  
+      const data: book = await response.json();
+
+      if (response.ok) {
+        setAdded(true);
+        setError("");
+      }
+
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,6 +75,7 @@ const AddBook = () => {
           <InputField type="" name="authors" text="Authors: " placeholder="John Doe,Jane Doe,... or John Doe" value={authors} onChange={(e) => setAuthors(e.target.value)}/>
           <InputField type="text" name="genres" text="Genres: " placeholder="Fantasy,Action,... or Fantasy" value={genres} onChange={(e) => setGenres(e.target.value)}/>
           {error && <p className="error_message">{error}</p>}
+          {added && <p className="success_message">Book {name} added successfully!</p>}
           <Button text="Add Book" type="submit" />
         </form>
       </div>
