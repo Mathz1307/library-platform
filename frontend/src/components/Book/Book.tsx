@@ -1,5 +1,5 @@
 import './Book.css';
-import reactLogo from '../../assets/react.svg';
+import notFound from '../../assets/aware.png';
 import { book } from '../../App'; 
 import { useState } from 'react';
 import Button from '../Button/Button';
@@ -37,7 +37,7 @@ function Book({ book_info, manageMode }: BookProps) {
             <div className="buttons">
                 {manageMode && <Button text="Delete" onClickFunction={() => deleteBook(book_info.id)} />}
             </div>
-            <img className="cover" src={imgPath} onError={() => setImgPath(reactLogo)}/>
+            <img className="cover" src={imgPath} onError={() => setImgPath(notFound)}/>
             <h2 className="title">{book_info.name}</h2>
             <div className="info">
                 <p>{`Release date: ${book_info.release_date}`}</p>
